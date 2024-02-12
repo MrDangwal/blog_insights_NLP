@@ -8,6 +8,15 @@ from wordcloud import WordCloud, STOPWORDS
 from collections import Counter
 from googlesearch import search
 
+
+nltk.download('maxent_ne_chunker')
+nltk.download('words')
+nltk.download('punkt')
+nltk.download('stopwords')
+nltk.download('averaged_perceptron_tagger')
+nltk.download('vader_lexicon')
+
+
 # Function to perform Google search
 def perform_google_search(query, num_results=20, lang=None, advanced=True, sleep_interval=5):
     search_results = []
