@@ -20,10 +20,12 @@ nltk.download('vader_lexicon')
 def perform_google_search(query, num_results=20, lang=None, advanced=True, sleep_interval=5):
     search_results = []
 
+    # Add "inurl:blog" to the search query
+    query += " inurl:blog"
+
     # Build the search query with specified options
-    search_query = f"{query} inurl:blog"
     if lang:
-        search_query += f" lang:{lang}"
+        query += f" lang:{lang}"
 
     if advanced:
         search_results = search(query, num_results=num_results, lang=lang, advanced=True)
