@@ -122,13 +122,13 @@ def main():
                 # Accumulate blog text
                 all_blog_text += blog_text
 
-                # Accumulate sentences
-                all_sentences.extend(sentences)
+                # Accumulate sentences with their source
+                all_sentences.extend([(sentence, url) for sentence in sentences])
 
                 # Perform sentiment analysis
                 positive_sentences, negative_sentences = sentiment_analysis(sentences)
-                all_positive_sentences.extend(positive_sentences)
-                all_negative_sentences.extend(negative_sentences)
+                all_positive_sentences.extend([(sentence, url) for sentence in positive_sentences])
+                all_negative_sentences.extend([(sentence, url) for sentence in negative_sentences])
 
                 # Perform NLP tasks
                 entities = extract_entities(sentences)
@@ -142,15 +142,17 @@ def main():
 
         # Top Most Positive Sentences
         st.subheader("Top Most Positive Sentences (Up to 50 words each):")
-        for sentence in all_positive_sentences[:10]:
+        for sentence, url in all_positive_sentences[:10]:
             if len(word_tokenize(sentence)) <= 50:
-                st.write(sentence)
+                st.write(f"From: {url}")
+                st.success(sentence)  # Highlight positive sentences
 
         # Top Most Negative Sentences
         st.subheader("Top Most Negative Sentences (Up to 50 words each):")
-        for sentence in all_negative_sentences[:10]:
+        for sentence, url in all_negative_sentences[:10]:
             if len(word_tokenize(sentence)) <= 50:
-                st.write(sentence)
+                st.write(f"From: {url}")
+                st.error(sentence)  # Highlight negative sentences
 
         # Top 10 Unique Entities
         st.subheader("Top 10 Unique Entities:")
