@@ -1,5 +1,5 @@
-import nltk
 import re
+import nltk
 import streamlit as st
 import requests
 from bs4 import BeautifulSoup
@@ -21,7 +21,7 @@ def perform_google_search(query, num_results=20, lang=None, advanced=True, sleep
     search_results = []
 
     # Build the search query with specified options
-    search_query = query
+    search_query = f"{query} inurl:blog"
     if lang:
         search_query += f" lang:{lang}"
 
@@ -133,17 +133,24 @@ def main():
                 all_entities.extend(entities)
 
         # Display insights for all blogs
+
+        # Word Cloud
         st.subheader("Word Cloud of Entities:")
         generate_word_cloud(all_entities)
 
-        st.subheader("Top Most Positive Sentences:")
+        # Top Most Positive Sentences
+        st.subheader("Top Most Positive Sentences (Up to 50 words each):")
         for sentence in all_positive_sentences[:10]:
-            st.write(sentence[:50])  # Displaying not more than 50 words
+            if len(word_tokenize(sentence)) <= 50:
+                st.write(sentence)
 
-        st.subheader("Top Most Negative Sentences:")
+        # Top Most Negative Sentences
+        st.subheader("Top Most Negative Sentences (Up to 50 words each):")
         for sentence in all_negative_sentences[:10]:
-            st.write(sentence[:50])  # Displaying not more than 50 words
+            if len(word_tokenize(sentence)) <= 50:
+                st.write(sentence)
 
+        # Top 10 Unique Entities
         st.subheader("Top 10 Unique Entities:")
         st.write(all_entities)
 
