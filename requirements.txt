@@ -1,0 +1,13 @@
+requests
+urllib3
+bs4
+fake_useragent
+wordcloud
+googlesearch-python
+pandas
+csv
+textblob
+nltk
+wordcloud
+matplotlib
+streamlit
