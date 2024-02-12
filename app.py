@@ -9,14 +9,12 @@ from wordcloud import WordCloud, STOPWORDS
 from collections import Counter
 from googlesearch import search
 
-
 nltk.download('maxent_ne_chunker')
 nltk.download('words')
 nltk.download('punkt')
 nltk.download('stopwords')
 nltk.download('averaged_perceptron_tagger')
 nltk.download('vader_lexicon')
-
 
 # Function to perform Google search
 def perform_google_search(query, num_results=20, lang=None, advanced=True, sleep_interval=5):
@@ -135,17 +133,19 @@ def main():
                 all_entities.extend(entities)
 
         # Display insights for all blogs
+        st.subheader("Word Cloud of Entities:")
+        generate_word_cloud(all_entities)
+
         st.subheader("Top Most Positive Sentences:")
-        st.write(all_positive_sentences[:10])
+        for sentence in all_positive_sentences[:10]:
+            st.write(sentence[:50])  # Displaying not more than 50 words
 
         st.subheader("Top Most Negative Sentences:")
-        st.write(all_negative_sentences[:10])
+        for sentence in all_negative_sentences[:10]:
+            st.write(sentence[:50])  # Displaying not more than 50 words
 
         st.subheader("Top 10 Unique Entities:")
         st.write(all_entities)
-
-        st.subheader("Word Cloud of Entities:")
-        generate_word_cloud(all_entities)
 
 if __name__ == "__main__":
     main()
