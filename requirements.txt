@@ -5,7 +5,6 @@ fake_useragent
 wordcloud
 googlesearch-python
 pandas
-csv
 textblob
 nltk
 wordcloud
