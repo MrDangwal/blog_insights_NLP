@@ -1,3 +1,4 @@
+import nltk
 import re
 import streamlit as st
 import requests
